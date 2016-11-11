@@ -4,10 +4,10 @@ public class InsertionSort{
 	public static void main(String args[]){
 		int[] arr = {12,5,6,1,7,3,8,53,32,1,56,13};
 		long current = System.currentTimeMillis();
-		long end = System.currentTimeMillis() - current;
-		System.out.println("Time is " + end);
 		
 		insertionSort(arr);
+		long end = System.currentTimeMillis() - current;
+		System.out.println("Time is " + end);
 		for(int i = 0; i < arr.length; i++){
 			System.out.print(arr[i] + " ");
 		}

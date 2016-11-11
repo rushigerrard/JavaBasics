@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.tree.TreeNode;
+
+
 public class Paranthesis {
 
 	StringBuilder s = new StringBuilder();
@@ -14,7 +17,10 @@ public class Paranthesis {
 		String s = new String();
 		ArrayList<String> as = new ArrayList<>();
 		helper(n, n, s, as);
+		//TreeNode t = new TreeNode(12);
+		
 		return as;
+		
 		
     }
 

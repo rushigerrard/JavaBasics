@@ -4,8 +4,9 @@ public class LongestCommonSubsequence {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String s = "adcdac";
-		String t = "dadacc";
+		String s = "ctmecyzufvghd";
+		/* 3, 45, 23, 9, 3, 99, 108, 76, 12, 77, 16, 18, 4*/
+		String t = "ccdefghmtuvyz";
 		System.out.println("The longest common subsequence is " + LongestCommonSubsequence(s, t));
 	}
 
