@@ -350,7 +350,6 @@ public class Tree {
 		
 		return stackP;
 	}
-*/
 	private int addAncestor(TreeNode node, Stack parentStack) {
 		
 		if(node.val = )
@@ -358,6 +357,7 @@ public class Tree {
 			return;
 		
 	}
+ */
 
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {
 		List<List<Integer>> finalList = new ArrayList<>();
