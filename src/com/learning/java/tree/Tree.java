@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Tree {
 	
@@ -322,7 +323,42 @@ public class Tree {
 		return root;
     }
 	
+	public int lowestCommonAncestorForNonBST(int p, int q){
+		if(root == null)
+			return -1;
+		if(root.val == p || root.val == q){
+			return p;
+		}
+		if(p == q){
+			return p;
+		}
+		Stack<Integer> stackP = new Stack<>();
+		Stack<Integer> stackQ = new Stack<>();
+		
+		stackP = ancestorsOfNode(new TreeNode(p), stackP);
+		stackQ = ancestorsOfNode(new TreeNode(q), stackQ);
+		
+	}
 	
+	
+	private Stack<Integer> ancestorsOfNode(TreeNode node, Stack<Integer> parentStack) {
+		parentStack.push(root.val);
+		if(addAncestor(node.left, parentStack) == 1){
+			return stackP;
+		}
+		addAncestor(node.right, parentStack);
+		
+		return stackP;
+	}
+
+	private int addAncestor(TreeNode node, Stack parentStack) {
+		
+		if(node.val = )
+		if(node == null)
+			return;
+		
+	}
+
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {
 		List<List<Integer>> finalList = new ArrayList<>();
 		
