@@ -323,7 +323,7 @@ public class Tree {
 		return root;
     }
 	
-	public int lowestCommonAncestorForNonBST(int p, int q){
+/*	public int lowestCommonAncestorForNonBST(int p, int q){
 		if(root == null)
 			return -1;
 		if(root.val == p || root.val == q){
@@ -350,7 +350,7 @@ public class Tree {
 		
 		return stackP;
 	}
-
+*/
 	private int addAncestor(TreeNode node, Stack parentStack) {
 		
 		if(node.val = )
