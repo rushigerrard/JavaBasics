@@ -306,8 +306,8 @@ public class Tree {
 	}
 	
 	public int lowestCommonAncestor(int p, int q) {
-		//TreeNode ancestor = lowestCommonAncestor(root, new TreeNode(p),new TreeNode(q));
-		TreeNode ancestor = lowestCommonAncestorBinaryTree(root, new TreeNode(p),new TreeNode(q));
+		TreeNode ancestor = lowestCommonAncestor(root, new TreeNode(p),new TreeNode(q));
+		//TreeNode ancestor = lowestCommonAncestorBinaryTree(root, new TreeNode(p),new TreeNode(q));
         if(ancestor == null)
         	return -1;
         return ancestor.val; 
@@ -341,14 +341,17 @@ public class Tree {
 		Collections.reverse(ancestorP);
 		Collections.reverse(ancestorQ);
 		int minLength = ancestorP.size() < ancestorQ.size() ? ancestorP.size() : ancestorQ.size();
+		if(minLength == 0)
+			return new TreeNode(0);
+		
 		for(int i = 1; i < minLength; i++){
 			if(ancestorP.get(i) != ancestorQ.get(i)){
 				return new TreeNode(ancestorP.get(i - 1));
 			}
 		}
+		System.out.println("Ancestor found at " + ancestorP.get(minLength - 1) );
 		
-		int ancestorValue = 0;
-		return new TreeNode(ancestorValue);
+		return new TreeNode(ancestorP.get(minLength - 1));
 	}	
 	private int preOrderTraversal(TreeNode root, TreeNode p, ArrayList<Integer> ancestorP) {
 		if(root == null)
