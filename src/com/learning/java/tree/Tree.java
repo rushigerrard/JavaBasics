@@ -306,7 +306,8 @@ public class Tree {
 	}
 	
 	public int lowestCommonAncestor(int p, int q) {
-		TreeNode ancestor = lowestCommonAncestor(root, new TreeNode(p),new TreeNode(q));
+		//TreeNode ancestor = lowestCommonAncestor(root, new TreeNode(p),new TreeNode(q));
+		TreeNode ancestor = lowestCommonAncestorBinaryTree(root, new TreeNode(p),new TreeNode(q));
         if(ancestor == null)
         	return -1;
         return ancestor.val; 
@@ -323,41 +324,50 @@ public class Tree {
 		return root;
     }
 	
-/*	public int lowestCommonAncestorForNonBST(int p, int q){
+	public TreeNode lowestCommonAncestorBinaryTree(TreeNode root, TreeNode p, TreeNode q){
 		if(root == null)
-			return -1;
-		if(root.val == p || root.val == q){
+			return root;
+		if(root.val == p.val || root.val == q.val)
+			return root;
+		if(p == q)
 			return p;
+		
+		ArrayList<Integer> ancestorP = new ArrayList<>();
+		ArrayList<Integer> ancestorQ = new ArrayList<>();
+		
+		preOrderTraversal(root, p, ancestorP);
+		preOrderTraversal(root, q, ancestorQ);
+		
+		Collections.reverse(ancestorP);
+		Collections.reverse(ancestorQ);
+		int minLength = ancestorP.size() < ancestorQ.size() ? ancestorP.size() : ancestorQ.size();
+		for(int i = 1; i < minLength; i++){
+			if(ancestorP.get(i) != ancestorQ.get(i)){
+				return new TreeNode(ancestorP.get(i - 1));
+			}
 		}
-		if(p == q){
-			return p;
+		
+		int ancestorValue = 0;
+		return new TreeNode(ancestorValue);
+	}	
+	private int preOrderTraversal(TreeNode root, TreeNode p, ArrayList<Integer> ancestorP) {
+		if(root == null)
+			return 0;
+		if(root.val == p.val){
+			ancestorP.add(root.val);
+			return 1;
 		}
-		Stack<Integer> stackP = new Stack<>();
-		Stack<Integer> stackQ = new Stack<>();
 		
-		stackP = ancestorsOfNode(new TreeNode(p), stackP);
-		stackQ = ancestorsOfNode(new TreeNode(q), stackQ);
-		
-	}
-	
-	
-	private Stack<Integer> ancestorsOfNode(TreeNode node, Stack<Integer> parentStack) {
-		parentStack.push(root.val);
-		if(addAncestor(node.left, parentStack) == 1){
-			return stackP;
+		if(preOrderTraversal(root.left, p, ancestorP) == 1){
+			ancestorP.add(root.val);
+			return 1;
 		}
-		addAncestor(node.right, parentStack);
-		
-		return stackP;
+		if(preOrderTraversal(root.right, p, ancestorP) == 1){
+			ancestorP.add(root.val);
+			return 1;
+		}
+		return 0;
 	}
-	private int addAncestor(TreeNode node, Stack parentStack) {
-		
-		if(node.val = )
-		if(node == null)
-			return;
-		
-	}
- */
 
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {
 		List<List<Integer>> finalList = new ArrayList<>();

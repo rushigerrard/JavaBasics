@@ -41,7 +41,7 @@ public class UseTree {
 		System.out.println("--------------------");
 		t.inorder();
 		System.out.println("--------------------");
-		System.out.println(t.lowestCommonAncestor(6, 8));
+		System.out.println("Lowest common ancestor of 6, 8 is " + t.lowestCommonAncestor(6, 8));
 		System.out.println("--------------------");
 		System.out.println("Size is " + t.size());
 		//t.topView();
