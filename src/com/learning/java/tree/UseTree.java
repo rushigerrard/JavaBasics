@@ -45,6 +45,15 @@ public class UseTree {
 		System.out.println("--------------------");
 		System.out.println("Size is " + t.size());
 		//t.topView();
+		Tree wellBalancedTree = new Tree();
+		Integer[] givenArray = {1, 2, 3, 4, 5, 6, 7, 8};
+		wellBalancedTree.minimalHeight(givenArray);
+		System.out.println("Inorder traversal of well balanced tree is : ");
+		wellBalancedTree.inorder();
+		System.out.println("Preorder traversal of well balanced tree is : ");
+		wellBalancedTree.preorder();
+
+		
 	}
 
 }

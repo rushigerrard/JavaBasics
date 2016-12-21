@@ -22,7 +22,7 @@ public class BoundedType <T extends Number> {
 	}
 	
 	// ? <----- Is the wildcard
-	public boolean sameAverage(BoundedType<?> obj){
+	public boolean sameAverage(BoundedType<? extends Number> obj){
 		if(getAverage() == obj.getAverage())
 			return true;
 		return false;

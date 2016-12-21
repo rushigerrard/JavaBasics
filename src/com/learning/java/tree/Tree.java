@@ -457,4 +457,25 @@ public class Tree {
 		return null;
         
     }
+
+	public void minimalHeight(Integer[] givenArray) {
+		_minimalHeight(givenArray, 0, givenArray.length - 1);
+		
+	}
+
+	private void _minimalHeight(Integer[] givenArray, int start, int end) {
+		if(start == end){
+			insert(givenArray[start]);
+			return ;
+		}
+		if(start < end){
+			int minimum = (start + end) / 2;
+			insert(givenArray[minimum]);
+			_minimalHeight(givenArray, start, minimum - 1);
+			_minimalHeight(givenArray, minimum + 1, end);
+		}
+	}
+	
+	
+	
 }
