@@ -1,5 +1,8 @@
 package com.learning.java.tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class UseTree {
 
 	public static void main(String[] args) {
@@ -46,13 +49,19 @@ public class UseTree {
 		System.out.println("Size is " + t.size());
 		//t.topView();
 		Tree wellBalancedTree = new Tree();
-		Integer[] givenArray = {1, 2, 3, 4, 5, 6, 7, 8};
+		Integer[] givenArray = {0, 1, 2, 3, 4};
 		wellBalancedTree.minimalHeight(givenArray);
 		System.out.println("Inorder traversal of well balanced tree is : ");
 		wellBalancedTree.inorder();
 		System.out.println("Preorder traversal of well balanced tree is : ");
 		wellBalancedTree.preorder();
-
+		ArrayList<LinkedList<Integer>> results = wellBalancedTree.allSequences();
+		System.out.println("All sequences of given tree are ");
+		for(LinkedList<Integer> result : results){
+			for(Integer value : result)
+				System.out.print(value + " -> ");
+			System.out.println();
+		}
 		
 	}
 

@@ -477,5 +477,55 @@ public class Tree {
 	}
 	
 	
-	
+	public ArrayList<LinkedList<Integer>> allSequences(){
+		return allSequences(root);
+	}
+	private ArrayList<LinkedList<Integer>> allSequences(TreeNode node){
+		ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
+		if(node == null){
+			result.add(new LinkedList<Integer>());
+			return result;
+		}
+		LinkedList<Integer> prefix = new LinkedList<Integer>();
+		prefix.add(node.val);
+		/* Recursive on left and right subtrees*/
+		ArrayList<LinkedList<Integer>> leftSeq = allSequences(node.left);
+		ArrayList<LinkedList<Integer>> rightSeq = allSequences(node.right);
+		
+		/*Weave together each list from left and right sides*/
+		for(LinkedList<Integer> left : leftSeq){
+			for(LinkedList<Integer> right : rightSeq){
+				ArrayList<LinkedList<Integer>> weaved = new ArrayList<>();
+				weave(left, right, weaved, prefix);
+				result.addAll(weaved);
+			}
+		}
+		return result;
+	}
+
+	private void weave(LinkedList<Integer> left, LinkedList<Integer> right, ArrayList<LinkedList<Integer>> weaved,
+			LinkedList<Integer> prefix) {
+		
+		if(left.size() == 0 || right.size() == 0){
+			LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
+			result.addAll(left);
+			result.addAll(right);
+			weaved.add(result);
+			return ;
+		}
+		//Recursive with head of left added to the list first
+		int headFirst = left.removeFirst();
+		prefix.addLast(headFirst);
+		weave(left, right, weaved, prefix);
+		prefix.removeLast();
+		left.addFirst(headFirst);
+		
+		//Recursive with head of right added to the list first
+		int headSecond = right.removeFirst();
+		prefix.addLast(headSecond);
+		weave(left, right, weaved, prefix);
+		prefix.removeLast();
+		right.addFirst(headSecond);
+		
+	}
 }
