@@ -80,5 +80,5 @@ public class LinkedList {
 		ll.Remove(45);
 		ll.Print();
 	}
-
+	
 }

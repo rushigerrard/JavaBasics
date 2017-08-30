@@ -52,7 +52,39 @@ public class LeetValidSudoku {
 			board[count++] = s.toCharArray();
 		}
 		System.out.println(lvs.isValidSudoku(board));
+		System.out.println(lvs.isValidSudoku2(board));
 	}
 
+	private boolean isValidSudoku2(char[][] board) {
+		return areRowsValid(board) && areColumnsValid(board) && areGridsValid(board);
+	}
+
+	private boolean areColumnsValid(char[][] board) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean areGridsValid(char[][] board) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean areRowsValid(char[][] board) {
+		boolean[] check = new boolean[board.length];
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == '.')
+					continue;
+				if (check[Character.getNumericValue(board[i][j])]) {
+					return false;
+				} else {
+					check[Character.getNumericValue(board[i][j])] = true;
+				}
+			}
+			check = new boolean[board.length];
+		}
+		return true;
+	}
 	
 }

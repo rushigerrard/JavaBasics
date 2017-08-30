@@ -2,10 +2,12 @@ package com.learning.java.tree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Stack;
 
 public class Tree {
 	
@@ -79,9 +81,12 @@ public class Tree {
 	public void postorder(){
 		_postorder(root);
 	}
+
 	private void _postorder(TreeNode node) {
+		
 		if(node == null)
 			return ;
+		
 		_postorder(node.left);
 		_postorder(node.right);
 		System.out.println(node.val);
@@ -353,6 +358,7 @@ public class Tree {
 		
 		return new TreeNode(ancestorP.get(minLength - 1));
 	}	
+
 	private int preOrderTraversal(TreeNode root, TreeNode p, ArrayList<Integer> ancestorP) {
 		if(root == null)
 			return 0;
@@ -420,6 +426,7 @@ public class Tree {
 		else 
 			return (isSymmetric(p.left, q.right) && isSymmetric(p.right, q.left));
 	}
+
 	public boolean isSymmetric(TreeNode root) {
 		
 		if(root == null)
@@ -429,12 +436,16 @@ public class Tree {
 		return isSymmetric(root.left, root.right);
 		
     }
+
 	public int max(int a, int b){
         if(a > b)
             return a;
         return b;    
     }
 	
+	public int getHeight() {
+		return checkHeight(root);
+	}
 	public int checkHeight(TreeNode root){
         if(root == null)
             return 0;
@@ -450,9 +461,11 @@ public class Tree {
             return false;
         }
         
+
         return ( isBalanced(root.left) && isBalanced(root.right) );
         
     }
+
     public List<String> binaryTreePaths(TreeNode root) {
 		return null;
         
@@ -475,12 +488,12 @@ public class Tree {
 			_minimalHeight(givenArray, minimum + 1, end);
 		}
 	}
-	
-	
+
 	public ArrayList<LinkedList<Integer>> allSequences(){
 		return allSequences(root);
 	}
-	private ArrayList<LinkedList<Integer>> allSequences(TreeNode node){
+
+	private ArrayList<LinkedList<Integer>> allSequences(TreeNode node) {
 		ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
 		if(node == null){
 			result.add(new LinkedList<Integer>());
@@ -527,5 +540,168 @@ public class Tree {
 		prefix.removeLast();
 		right.addFirst(headSecond);
 		
+	}
+
+
+	HashSet<Integer> duplicateHashs = new HashSet<>();
+	HashSet<TreeNode> matchedNodes = new HashSet<>();
+
+	public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+		allHashCode(root);
+		return new ArrayList<>(matchedNodes);
+	}
+
+	public void allHashCode(TreeNode root) {
+		hashCode(root);
+
+	}
+	public void hashCode(TreeNode node) {
+		int result = 0;
+
+		result = result + node.val * 31;
+
+		if (node.left != null)
+			result = result + 17 * node.left.hashCode();
+		if (node.right != null)
+			result = result + 37 * node.right.hashCode();
+
+		if (duplicateHashs.contains(result)) {
+			matchedNodes.add(node);
+		} else {
+			duplicateHashs.add(result);
+		}
+
+	}
+
+	public List<LinkedList<Integer>> allPaths() {
+		List<LinkedList<Integer>> allPaths = new ArrayList<>();
+		getAllPaths(root, allPaths, new LinkedList<Integer>());
+		return allPaths;
+	}
+
+	private void getAllPaths(TreeNode node, List<LinkedList<Integer>> allPaths,
+			LinkedList<Integer> currentList) {
+		if (node == null)
+			return;
+		if (node.left == null && node.right == null) {
+			currentList.add(node.val);
+			allPaths.add(new LinkedList<>(currentList));
+
+			return;
+		}
+		currentList.add(node.val);
+
+		int size = allPaths.size();
+		getAllPaths(node.left, allPaths, currentList);
+		if (size != allPaths.size())
+			currentList.removeLast();
+
+		size = allPaths.size();
+		getAllPaths(node.right, allPaths, currentList);
+		if (size != allPaths.size())
+			currentList.removeLast();
+	}
+
+	public List<List<String>> printTree(TreeNode root) {
+		List<List<String>> grid = new ArrayList<>();
+		int row = getHeight();
+		int col = (int) (Math.pow(2, row) - 1);
+		for(int i = 0; i < row; i++){
+			grid.add(new ArrayList<String>());
+			for (int j = 0; j < col; j++) {
+				grid.get(i).add("");
+			}
+		}
+
+		int start = 0;
+		int end = col - 1;
+		printTree(root, grid, 0, row, start, end);
+
+		return grid;
+	}
+
+	private void printTree(TreeNode root, List<List<String>> grid, int currentRow, int totalRows, int start, int end) {
+		if (root == null || currentRow == totalRows)
+			return;
+		int middle = (start + end) / 2;
+		grid.get(currentRow).set(middle, Integer.toString(root.val));
+		printTree(root.left, grid, currentRow + 1, totalRows, start, middle - 1);
+		printTree(root.right, grid, currentRow + 1, totalRows, middle + 1, end);
+	}
+
+
+
+	Comparator<IndexValuePair> comparator = new IndexValuePairComparatorImpl();
+	public TreeNode constructMaximumBinaryTree(int[] nums) {
+
+		PriorityQueue<IndexValuePair> pq = new PriorityQueue<>(comparator);
+		for (int i = 0; i < nums.length; i++) {
+			pq.add(new IndexValuePair(nums[i], i));
+		}
+
+		while (!pq.isEmpty()) {
+			pq.poll();
+		}
+
+		return null;
+
+	}
+
+	public class PathPair {
+		public int livePath;
+		public int maxPath;
+
+		public PathPair() {
+
+		}
+
+		public PathPair(int livePath, int nodePath) {
+			this.livePath = livePath;
+			this.maxPath = nodePath;
+		}
+
+		public String toString() {
+			return "livePath : " + livePath + " maxPath : " + maxPath;
+		}
+	}
+
+	public PathPair maxPathSum2(TreeNode root) {
+		if (root == null) {
+			return new PathPair(0, 0);
+		}
+		if (root.left == null && root.right == null) {
+			System.out.println(root.val + " " + new PathPair(root.val, root.val).toString());
+			return new PathPair(root.val, root.val);
+		}
+		PathPair fromLeft = maxPathSum2(root.left);
+		PathPair fromRight = maxPathSum2(root.right);
+
+		int livePath = fromLeft.livePath > fromRight.livePath ? fromLeft.livePath : fromRight.livePath;
+
+		if (livePath >= 0 && root.val >= 0)
+			livePath += root.val;
+		if (livePath <= 0 && root.val > 0)
+			livePath = root.val;
+		if (livePath < 0 && root.val < 0)
+			livePath = 0;
+
+		int currentPath = fromLeft.livePath + root.val + fromRight.livePath;
+		int prevMaxPath = fromLeft.maxPath > fromRight.maxPath ? fromLeft.maxPath : fromRight.maxPath;
+		int maxPath = prevMaxPath > currentPath ? prevMaxPath : currentPath;
+
+		PathPair rootPair = new PathPair(livePath, maxPath);
+		System.out.println(root.val + " " + rootPair.toString());
+		return new PathPair(livePath, maxPath);
+	}
+
+	public int maxPathSum(TreeNode root) {
+		PathPair finalPair = maxPathSum2(root);
+
+		return finalPair.maxPath;
+
+	}
+
+	public int maxPathSum() {
+		return maxPathSum(root);
 	}
 }

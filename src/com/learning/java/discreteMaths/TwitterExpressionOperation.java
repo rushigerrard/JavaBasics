@@ -2,7 +2,7 @@ package com.learning.java.discreteMaths;
 
 import java.util.Scanner;
 
-public class Solution {
+public class TwitterExpressionOperation {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);

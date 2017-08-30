@@ -3,6 +3,7 @@ package com.learning.java.tree;
 /* Definition for a binary tree node.*/
  public class TreeNode {
 	 int val;
+	int result;
 	 TreeNode left;
 	 TreeNode right;
 	 

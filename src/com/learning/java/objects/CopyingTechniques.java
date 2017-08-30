@@ -17,17 +17,20 @@ public class CopyingTechniques {
 		a.j = 6;
 		
 		//Shallow copy
+		System.out.println("Shallow copy : ");
 		A shallow = a;
-		System.out.println(shallow.i + " " + shallow.j );
+		System.out.println("Before : " + shallow.i + " " + shallow.j);
 		shallow.i = 7; shallow.j = 8;
-		System.out.println(a.i + " " + a.j );
+		System.out.println("After : " + a.i + " " + a.j);
 
 		//Deep copy
+		System.out.println("Deep copy : ");
 		A deep = new A();
 		deep.i = a.i; deep.j = a.j;
 		System.out.println(deep.i + " " + deep.j );
 		
 		//Cloning an object
+		System.out.println("Cloning");
 		try{
 			A clone = (A) a.clone();
 			System.out.println(clone.i + " " + clone.j );
